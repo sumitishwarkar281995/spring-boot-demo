@@ -2,39 +2,36 @@ package com.example.reward.entity;
 
 import java.time.LocalDate;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
-@Table(name="transactions")
+
 public class Transaction {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@Column(name="customer_id")
-	private String customerId;
-	
+
+	@NotNull
 	private double amount;
-	
-	@Column(name="txn_date")
+
+	@NotNull
 	private LocalDate date;
+
+	@ManyToOne
+	private Customer customer;
 
 	public Long getId() {
 		return id;
 	}
 
-	public String getCustomerId() {
-		return customerId;
-	}
-
-	public void setCustomerId(String customerId) {
-		this.customerId = customerId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public double getAmount() {
@@ -53,5 +50,14 @@ public class Transaction {
 		this.date = date;
 	}
 
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
 	
+	
+
 }
