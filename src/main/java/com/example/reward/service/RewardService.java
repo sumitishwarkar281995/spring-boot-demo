@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.example.reward.dto.RewardResponseDTO;
@@ -19,6 +21,10 @@ import com.example.reward.util.RewardUtil;
 public class RewardService {
 
 	private final TransactionRepository repo;
+	
+
+    private static final Logger log = LoggerFactory.getLogger(RewardService.class);
+
 
 	public RewardService(TransactionRepository repo) {
 		super();
@@ -26,7 +32,7 @@ public class RewardService {
 	}
 
 	public RewardResponseDTO getCustomerRewards(Long customerId, LocalDate start, LocalDate end) {
-
+		log.info("Fetching rewards for customer {}", customerId);
 		if (start.isAfter(end)) {
 			throw new IllegalArgumentException("Start date cannot be after end date");
 		}
@@ -69,6 +75,7 @@ public class RewardService {
 	}
 
 	public List<RewardResponseDTO> getAllCustomerRewards() {
+		 log.info("Fetching rewards for all customers");
 
 		List<Transaction> transactions = repo.findAll();
 
